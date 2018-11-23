@@ -77,7 +77,7 @@ namespace JacketsRecognition
                 Console.WriteLine("Input path to image to train model with:");
                 var imagePath = Console.ReadLine();
 
-                Console.WriteLine("What tag would you give this image? Hardshell or insulated?");
+                Console.WriteLine("What tag would you give this image? Hard-shell or insulated?");
                 var imageTag = Console.ReadLine();
 
                 var capitilizedTag = char.ToUpper(imageTag.First()) + imageTag.Substring(1).ToLower();
