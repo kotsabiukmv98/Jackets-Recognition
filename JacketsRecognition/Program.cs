@@ -20,7 +20,7 @@ namespace JacketsRecognition
             var predictionEndpoint = new PredictionEndpoint { ApiKey = keys.PredictionKey };
 
             var projects = trainingApi.GetProjects();
-            var herbProject = projects.FirstOrDefault(p => p.Name == "Herbs");
+            var jacketsProject = projects.FirstOrDefault(p => p.Name == "Jackets Recognition");
 
             Console.WriteLine("Press 1 to predict and 2 to train:");
             var pathChoice = Console.ReadLine();
@@ -35,9 +35,9 @@ namespace JacketsRecognition
                     Console.WriteLine("Input the URL to an image to test:");
                     var imageUrl = Console.ReadLine();
 
-                    if (herbProject != null)
+                    if (jacketsProject != null)
                     {
-                        var result = predictionEndpoint.PredictImageUrl(herbProject.Id, new Microsoft.Cognitive.CustomVision.Prediction.Models.ImageUrl(imageUrl));
+                        var result = predictionEndpoint.PredictImageUrl(jacketsProject.Id, new Microsoft.Cognitive.CustomVision.Prediction.Models.ImageUrl(imageUrl));
 
                         PrintResults(result);
                     }
@@ -58,9 +58,9 @@ namespace JacketsRecognition
 
                     var imageFile = File.OpenRead(imagePath);
 
-                    if (herbProject != null)
+                    if (jacketsProject != null)
                     {
-                        var result = predictionEndpoint.PredictImage(herbProject.Id, imageFile);
+                        var result = predictionEndpoint.PredictImage(jacketsProject.Id, imageFile);
 
                         PrintResults(result);
                     }
@@ -77,7 +77,7 @@ namespace JacketsRecognition
                 Console.WriteLine("Input path to image to train model with:");
                 var imagePath = Console.ReadLine();
 
-                Console.WriteLine("What tag would you give this image? Rosemary, cilantro, or basil?");
+                Console.WriteLine("What tag would you give this image? Hardshell or insulated?");
                 var imageTag = Console.ReadLine();
 
                 var capitilizedTag = char.ToUpper(imageTag.First()) + imageTag.Substring(1).ToLower();
@@ -91,7 +91,7 @@ namespace JacketsRecognition
 
                 var imageFile = File.OpenRead(imagePath);
 
-                var tags = trainingApi.GetTags(herbProject.Id);
+                var tags = trainingApi.GetTags(jacketsProject.Id);
 
                 var matchedTag = tags.Tags.FirstOrDefault(t => t.Name == capitilizedTag);
 
@@ -101,7 +101,7 @@ namespace JacketsRecognition
                 var fileCreateEntry = new ImageFileCreateEntry(imageFile.Name, memoryStream.ToArray());
                 var fileCreateBatch = new ImageFileCreateBatch { Images = new List<ImageFileCreateEntry> { fileCreateEntry }, TagIds = new List<Guid> { matchedTag.Id } };
 
-                var result = trainingApi.CreateImagesFromFiles(herbProject.Id, fileCreateBatch);
+                var result = trainingApi.CreateImagesFromFiles(jacketsProject.Id, fileCreateBatch);
 
                 var resultImage = result.Images.FirstOrDefault();
 
@@ -115,17 +115,17 @@ namespace JacketsRecognition
                         break;
                 }
 
-                var iteration = trainingApi.TrainProject(herbProject.Id);
+                var iteration = trainingApi.TrainProject(jacketsProject.Id);
 
                 while (iteration.Status != "Completed")
                 {
                     System.Threading.Thread.Sleep(1000);
 
-                    iteration = trainingApi.GetIteration(herbProject.Id, iteration.Id);
+                    iteration = trainingApi.GetIteration(jacketsProject.Id, iteration.Id);
                 }
 
                 iteration.IsDefault = true;
-                trainingApi.UpdateIteration(herbProject.Id, iteration.Id, iteration);
+                trainingApi.UpdateIteration(jacketsProject.Id, iteration.Id, iteration);
                 Console.WriteLine("Done training!");
 
                 Console.ReadLine();
