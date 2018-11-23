@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacketsRecognition", "HerbCustomVision\JacketsRecognition.csproj", "{2D73CD7A-D309-4214-BB37-B996B2777BFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacketsRecognition", "JacketsRecognition\JacketsRecognition.csproj", "{2D73CD7A-D309-4214-BB37-B996B2777BFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {07812C14-4EA1-4802-B7F1-350740A6F231}
+		SolutionGuid = {F05C09E0-C37D-457D-A145-D68D4168B42D}
 	EndGlobalSection
 EndGlobal
